@@ -1,0 +1,52 @@
+
+entity Project {
+	projectName String
+    projectDesc String
+    userId Long
+    projectType ProjectType
+    accessMode AccessMode
+    tags String
+    createdDate Instant
+    coverPhoto ImageBlob
+}
+
+entity Document {
+    docName String
+    docDesc String
+    document AnyBlob
+    doctype DocType
+    docFormat DocFormat
+}
+
+
+enum DocType {
+    FLOORPLAN, FLOORPLAN3D, ELEVATION,ELEVATION3D
+}
+
+enum DocFormat {
+    PDF, JPEG, PNG
+}
+enum ProjectType {
+    PORTFOLIO, DESIGN, REQUIREMENT
+}
+enum AccessMode {
+    PUBLIC, ASSIGNED, CUSTOMER
+}
+
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Project{documents} to Document
+
+}
+
+
+// Set pagination options
+paginate Project,Document with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+// Set an angular suffix
+angularSuffix * with draft99
