@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="project">
+            <h2><span>Project</span> {{project.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Project Name</span></dt>
+                <dd>
+                    <span>{{project.projectName}}</span>
+                </dd>
+                <dt><span>Project Desc</span></dt>
+                <dd>
+                    <span>{{project.projectDesc}}</span>
+                </dd>
+                <dt><span>User Id</span></dt>
+                <dd>
+                    <span>{{project.userId}}</span>
+                </dd>
+                <dt><span>Project Type</span></dt>
+                <dd>
+                    <span>{{project.projectType}}</span>
+                </dd>
+                <dt><span>Access Mode</span></dt>
+                <dd>
+                    <span>{{project.accessMode}}</span>
+                </dd>
+                <dt><span>Tags</span></dt>
+                <dd>
+                    <span>{{project.tags}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{project.createdDate}}</span>
+                </dd>
+                <dt><span>Cover Photo</span></dt>
+                <dd>
+                    <div *ngIf="project.coverPhoto">
+                        <a (click)="openFile(project.coverPhotoContentType, project.coverPhoto)">
+                            <img [src]="'data:' + project.coverPhotoContentType + ';base64,' + project.coverPhoto" style="max-width: 100%;" alt="project image"/>
+                        </a>
+                        {{project.coverPhotoContentType}}, {{byteSize(project.coverPhoto)}}
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/project-draft-99', project.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

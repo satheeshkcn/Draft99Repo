@@ -1,0 +1,46 @@
+{
+    "name": "Document",
+    "fields": [
+        {
+            "fieldName": "docName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "docDesc",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "document",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "doctype",
+            "fieldType": "DocType",
+            "fieldValues": "FLOORPLAN,FLOORPLAN3D,ELEVATION,ELEVATION3D"
+        },
+        {
+            "fieldName": "docFormat",
+            "fieldType": "DocFormat",
+            "fieldValues": "PDF,JPEG,PNG"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "project",
+            "otherEntityName": "project",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180814190022",
+    "entityTableName": "document",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "draft99"
+}

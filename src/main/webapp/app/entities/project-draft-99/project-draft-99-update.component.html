@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-project-draft-99-heading">Create or edit a Project</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!project.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="project.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_projectName">Project Name</label>
+                    <input type="text" class="form-control" name="projectName" id="field_projectName"
+                        [(ngModel)]="project.projectName" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_projectDesc">Project Desc</label>
+                    <input type="text" class="form-control" name="projectDesc" id="field_projectDesc"
+                        [(ngModel)]="project.projectDesc" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_userId">User Id</label>
+                    <input type="number" class="form-control" name="userId" id="field_userId"
+                        [(ngModel)]="project.userId" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_projectType">Project Type</label>
+                    <select class="form-control" name="projectType" [(ngModel)]="project.projectType" id="field_projectType" >
+                        <option value="PORTFOLIO">PORTFOLIO</option>
+                        <option value="DESIGN">DESIGN</option>
+                        <option value="REQUIREMENT">REQUIREMENT</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_accessMode">Access Mode</label>
+                    <select class="form-control" name="accessMode" [(ngModel)]="project.accessMode" id="field_accessMode" >
+                        <option value="PUBLIC">PUBLIC</option>
+                        <option value="ASSIGNED">ASSIGNED</option>
+                        <option value="CUSTOMER">CUSTOMER</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tags">Tags</label>
+                    <input type="text" class="form-control" name="tags" id="field_tags"
+                        [(ngModel)]="project.tags" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdDate">Created Date</label>
+                    <div class="d-flex">
+                        <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="createdDate"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_coverPhoto">Cover Photo</label>
+                    <div>
+                        <img [src]="'data:' + project.coverPhotoContentType + ';base64,' + project.coverPhoto" style="max-height: 100px;" *ngIf="project.coverPhoto" alt="project image"/>
+                        <div *ngIf="project.coverPhoto" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{project.coverPhotoContentType}}, {{byteSize(project.coverPhoto)}}</span>
+                            <button type="button" (click)="clearInputImage('coverPhoto', 'coverPhotoContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_coverPhoto" (change)="setFileData($event, project, 'coverPhoto', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="coverPhoto" id="field_coverPhoto"
+                        [(ngModel)]="project.coverPhoto" />
+                    <input type="hidden" class="form-control" name="coverPhotoContentType" id="field_coverPhotoContentType"
+                        [(ngModel)]="project.coverPhotoContentType" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

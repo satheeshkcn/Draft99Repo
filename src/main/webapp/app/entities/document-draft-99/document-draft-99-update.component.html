@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-document-draft-99-heading">Create or edit a Document</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!document.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="document.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_docName">Doc Name</label>
+                    <input type="text" class="form-control" name="docName" id="field_docName"
+                        [(ngModel)]="document.docName" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_docDesc">Doc Desc</label>
+                    <input type="text" class="form-control" name="docDesc" id="field_docDesc"
+                        [(ngModel)]="document.docDesc" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_document">Document</label>
+                    <div>
+                        <div *ngIf="document.document" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(document.documentContentType, document.document)">open</a><br>
+                            <span class="pull-left">{{document.documentContentType}}, {{byteSize(document.document)}}</span>
+                            <button type="button" (click)="document.document=null;document.documentContentType=null;"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_document" (change)="setFileData($event, document, 'document', false)"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="document" id="field_document"
+                        [(ngModel)]="document.document" />
+                    <input type="hidden" class="form-control" name="documentContentType" id="field_documentContentType"
+                        [(ngModel)]="document.documentContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_doctype">Doctype</label>
+                    <select class="form-control" name="doctype" [(ngModel)]="document.doctype" id="field_doctype" >
+                        <option value="FLOORPLAN">FLOORPLAN</option>
+                        <option value="FLOORPLAN3D">FLOORPLAN3D</option>
+                        <option value="ELEVATION">ELEVATION</option>
+                        <option value="ELEVATION3D">ELEVATION3D</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_docFormat">Doc Format</label>
+                    <select class="form-control" name="docFormat" [(ngModel)]="document.docFormat" id="field_docFormat" >
+                        <option value="PDF">PDF</option>
+                        <option value="JPEG">JPEG</option>
+                        <option value="PNG">PNG</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_project">Project</label>
+                    <select class="form-control" id="field_project" name="project" [(ngModel)]="document.projectId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="projectOption.id" *ngFor="let projectOption of projects; trackBy: trackProjectById">{{projectOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
